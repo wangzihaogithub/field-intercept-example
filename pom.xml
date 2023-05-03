@@ -24,11 +24,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.wangzihaogithub</groupId>
-            <artifactId>spring-boot-protocol</artifactId>
-            <version>2.3.11</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.3.12.RELEASE</version>
@@ -42,7 +37,7 @@
         <dependency>
             <groupId>com.github.wangzihaogithub</groupId>
             <artifactId>field-intercept</artifactId>
-            <version>1.0.6-SNAPSHOT</version>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 
