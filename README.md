@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>com.github.wangzihaogithub</groupId>
                 <artifactId>field-intercept</artifactId>
-                <version>1.0.13</version>
+                <version>1.0.14</version>
             </dependency>
 
 2. 源码项目地址  https://github.com/wangzihaogithub/field-intercept
