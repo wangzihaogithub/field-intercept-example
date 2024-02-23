@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD})
+@com.github.fieldintercept.annotation.EnumDBFieldConsumer.Extends
 public @interface EnumDBFieldConsumer {
 
     /**

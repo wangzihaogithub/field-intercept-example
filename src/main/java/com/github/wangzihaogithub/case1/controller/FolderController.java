@@ -1,14 +1,16 @@
 package com.github.wangzihaogithub.case1.controller;
 
+import com.github.fieldintercept.annotation.ReturnFieldAop;
+import com.github.fieldintercept.util.FieldCompletableFuture;
 import com.github.wangzihaogithub.case1.dto.FolderListResp;
 import com.github.wangzihaogithub.case1.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequestMapping("/folder")
 @RestController
@@ -39,5 +41,37 @@ public class FolderController {
         } else {
             return folderService.selectList(Arrays.asList(id));
         }
+    }
+
+    @ReturnFieldAop
+    @RequestMapping("/chainCall")
+    public FieldCompletableFuture<Map<String, List<FolderListResp>>> chainCall(Long[] id) {
+        return FieldCompletableFuture.completableFuture(Arrays.asList(id))
+                .thenApply(idList -> {
+                    List<FolderListResp> list = new ArrayList<>();
+                    for (Long id1 : idList) {
+                        FolderListResp resp = new FolderListResp();
+                        resp.setId(id1);
+                        list.add(resp);
+                    }
+                    return list;
+                })
+                .thenApply(list -> {
+                    List<FolderListResp> list12345 = Stream.of(1, 2, 3, 4, 5).map(e -> {
+                        FolderListResp resp = new FolderListResp();
+                        resp.setId(Long.valueOf(e));
+                        return resp;
+                    }).collect(Collectors.toList());
+
+                    Map<String, List<FolderListResp>> map = new HashMap<>();
+                    map.put("list", list);
+                    map.put("固定12345", list12345);
+                    return map;
+                })
+                .exceptionally(throwable -> {
+                    System.out.println("throwable = " + throwable);
+                    return null;
+                })
+                ;
     }
 }

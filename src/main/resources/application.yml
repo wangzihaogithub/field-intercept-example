@@ -1,4 +1,3 @@
-server:
-  tomcat:
-    threads:
-      max: 3010
+spring:
+  fieldintercept:
+    bean-base-packages: 'com.github.wangzihaogithub.case1,com.github.wangzihaogithub.case2'
