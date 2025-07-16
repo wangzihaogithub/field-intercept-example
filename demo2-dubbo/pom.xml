@@ -4,17 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cnwy</groupId>
-    <artifactId>field-intercept-demo</artifactId>
+    <artifactId>field-intercept-demo2-dubbo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>field-intercept-demo</name>
-    <description>field-intercept-demo</description>
+    <name>field-intercept-demo2-dubbo</name>
+    <description>field-intercept-demo2-dubbo</description>
 
     <modules>
-        <module>./demo1-simple</module>
-        <module>./demo2-dubbo</module>
-        <module>./demo3-userdefined</module>
-        <module>./demo-common</module>
+        <module>./tomcat-dubbo-provider</module>
+        <module>./tomcat-dubbo-consumer</module>
     </modules>
 </project>

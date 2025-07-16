@@ -1,0 +1,55 @@
+common:
+  nacos:
+    #    wai wang di zhi
+    server-addr: 'mse-xxxxx-p.nacos-ans.mse.aliyuncs.com'
+    access-key: 'xxxxx'
+    secret-key: 'xxxxx'
+    namespace: '${DUBBO_NAMESPACE:cnwy-platform-${spring.profiles.active}}'
+
+server:
+  port: 8081
+spring:
+  application:
+    name: 'cnwy-app-demo-service-consumer'
+  profiles:
+    active: dev
+  config:
+    import:
+      - 'nacos:env.yaml?group=common&refreshEnabled=false'
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${common.nacos.server-addr}
+        access-key: ${common.nacos.access-key}
+        secret-key: ${common.nacos.secret-key}
+        namespace: ${common.nacos.namespace}
+      config:
+        server-addr: ${common.nacos.server-addr}
+        access-key: ${common.nacos.access-key}
+        secret-key: ${common.nacos.secret-key}
+        namespace: ${common.nacos.namespace}
+        import-check:
+          enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${env.datasource.url}
+    username: ${env.datasource.username}
+    password: ${env.datasource.password}
+    hikari:
+      maximum-pool-size: 50
+  jackson:
+    date-format: 'yyyy-MM-dd HH:mm:ss'
+    time-zone: 'GMT+8'
+dubbo:
+  registry:
+    address: nacos://${common.nacos.server-addr}:8848
+    parameters:
+      namespace: ${common.nacos.namespace}
+      accessKey: ${common.nacos.access-key}
+      secretKey: ${common.nacos.secret-key}
+    register-mode: interface
+  consumer:
+    timeout: 1000
+  application:
+    serialize-check-status: WARN
+    metadata-service-disabled: true

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cnwy.app.demo.mapper.SysDictDataMapper">
+
+	<select id="selectListByType" resultType="com.cnwy.app.demo.entity.SysDictData">
+		select *
+		from sys_dict_data
+		where dict_type in
+		<foreach item="item" collection="dictType" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		and dict_value in
+		<foreach item="item" collection="dictValue" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper> 

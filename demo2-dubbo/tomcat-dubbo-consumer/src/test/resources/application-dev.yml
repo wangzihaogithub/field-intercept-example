@@ -1,0 +1,7 @@
+spring:
+  fieldintercept:
+    beanBasePackages: 'com.cnwy.app.demo'
+    cluster:
+      enabled: true
+      rpc: dubbo
+      role: consumer
