@@ -1,11 +1,11 @@
-package com.github.wangzihaogithub.case1.dto;
+package com.github.wangzihaogithub.case2.dto;
 
 import com.github.fieldintercept.annotation.EnumFieldConsumer;
 import com.github.fieldintercept.annotation.FieldConsumer;
-import com.github.wangzihaogithub.case1.annotation.EnumDBFieldConsumer;
-import com.github.wangzihaogithub.case1.enumer.BizEnumGroupEnum;
-import com.github.wangzihaogithub.case1.enumer.InterTypeEnum;
-import com.github.wangzihaogithub.case1.enumer.Providers;
+import com.github.wangzihaogithub.case2.annotation.EnumDBFieldConsumer;
+import com.github.wangzihaogithub.case2.enumer.BizEnumGroupEnum;
+import com.github.wangzihaogithub.case2.enumer.InterTypeEnum;
+import com.github.wangzihaogithub.case2.enumer.Providers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,11 +96,11 @@ public class OrderSelectListResp {
          */
         private Integer interRoundKey;
 
-        @EnumFieldConsumer(value = InterTypeEnum.class, keyField = "interType")
+        @EnumFieldConsumer(enumGroup = InterTypeEnum.class, keyField = "interType")
         private String interTypeName;
-        @EnumFieldConsumer(value = InterTypeEnum.class, keyField = "interType", valueField = "${color}")
+        @EnumFieldConsumer(enumGroup = InterTypeEnum.class, keyField = "interType", valueField = "${color}")
         private String interTypeColor;
-        @EnumDBFieldConsumer(value = BizEnumGroupEnum.INTER_ROUND, keyField = "interRoundKey")
+        @EnumDBFieldConsumer(enumGroup = BizEnumGroupEnum.INTER_ROUND, keyField = "interRoundKey")
         private String interRoundName;
 
         public String getTitle() {

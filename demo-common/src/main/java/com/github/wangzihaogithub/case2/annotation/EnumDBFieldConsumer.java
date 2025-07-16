@@ -1,7 +1,7 @@
-package com.github.wangzihaogithub.case1.annotation;
+package com.github.wangzihaogithub.case2.annotation;
 
-import com.github.wangzihaogithub.case1.enumer.BizEnumGroupEnum;
-import com.github.wangzihaogithub.case1.po.BizEnumPO;
+import com.github.wangzihaogithub.case2.enumer.BizEnumGroupEnum;
+import com.github.wangzihaogithub.case2.po.BizEnumPO;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,7 +21,7 @@ public @interface EnumDBFieldConsumer {
      *
      * @return
      */
-    BizEnumGroupEnum[] value();
+    BizEnumGroupEnum[] enumGroup();
 
     /**
      * 通常用于告知aop. id字段,或者key字段
