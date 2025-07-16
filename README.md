@@ -14,7 +14,7 @@
 #### 软件架构
 只依赖JDK，无其他多余依赖
 
-[CnwyAppDemoApplicationTests.java](src/test/java/com/cnwy/app/CnwyAppDemoApplicationTests.java)/test/com/cnwy/app/
+[CnwyAppDemoApplicationTests.java](demo1-simple/src/test/java/com/cnwy/app/CnwyAppDemoApplicationTests.java)
 
 #### 安装教程
 
