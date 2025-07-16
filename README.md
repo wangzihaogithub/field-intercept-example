@@ -11,10 +11,25 @@
 1.业务提供者（定义逻辑），2.业务需求者（注入结果），3.组织胶水代码（由本项目解决）
 
 
-#### 软件架构
-只依赖JDK，无其他多余依赖
+#### 软件依赖
+1. 只依赖JDK，无其他多余依赖
+2. 兼容java8～java21
+3. 兼容springboot2.x～springboot3.x
+4. 兼容dubbo2.7～dubbo3（兼容dubbo调用方没有提供方的类，会退化为Map）
 
-[CnwyAppDemoApplicationTests.java](demo1-simple/src/test/java/com/cnwy/app/CnwyAppDemoApplicationTests.java)
+
+#### demo介绍
+
+- [demo1-simple](demo1-simple) 简单的demo
+- [demo2-dubbo](demo2-dubbo) dubbo支持
+    - [tomcat-dubbo-consumer](demo2-dubbo/tomcat-dubbo-consumer) 数据使用方
+    - [tomcat-dubbo-provider](demo2-dubbo/tomcat-dubbo-provider) 数据提供方
+- [demo3-userdefined](demo3-userdefined) 用户自定义功能
+    - [userdefined-annotation](demo3-userdefined/userdefined-annotation) 自定义注解
+    - [userdefined-datadict](demo3-userdefined/userdefined-datadict) 自定义查询数据字典
+    - [userdefined-datadict2](demo3-userdefined/userdefined-datadict2) 自定义查询多个数据字典
+    - [userdefined-selectbyid](demo3-userdefined/userdefined-selectbyid) 自定义查询数据
+
 
 #### 安装教程
 
@@ -35,7 +50,7 @@
             spring:
                 fieldintercept:
                     beanBasePackages: 'com.xxx'
-                
+
 
 3. 在业务系统增加抽象Service， 类似下面这种
 
@@ -78,7 +93,7 @@
                        return pos.stream().collect(Collectors.toMap(AbstractPO::getId, po -> nameGetter.getReadMethod().invoke(po)));
                    }
          }
-      
+
 
 4. 然后你可以使用方式1或方式2暴露你的提供者逻辑，就可以供他人使用了
 
@@ -106,7 +121,7 @@
        }
 
 5. 使用方式：其他使用者在需要你的地方写上你的名字"SYS_USER", 这个StatisticsDetailResp只要遇到触发查询的地方，就会被填充。
-      
+
          @Data
          public class StatisticsDetailResp {
              private Integer pipelineId;
@@ -269,7 +284,7 @@
 
 - 如果业务提供者在其他应用中，不在本应用里，可以借助Dubbo，别的都不用改。 详细配置参考：com.github.fieldintercept.springboot.FieldinterceptProperties
 
-        
+
         提供者参考配置
             spring: 
                 fieldintercept:
@@ -279,7 +294,7 @@
                       rpc: dubbo
                       role: provider
                       dubbo:
-                        registry: 'myRegistryConfig' # 参考dubbo注册中心配置
+                        registry: 'myRegistryConfig' # 非必填，参考dubbo注册中心配置
                   batch-aggregation:
                     enabled: auto
 
@@ -293,13 +308,13 @@
                         rpc: dubbo
                         role: consumer
                         dubbo:
-                            registry: 'myRegistryConfig' # 参考dubbo注册中心配置
+                            registry: 'myRegistryConfig' # 非必填，参考dubbo注册中心配置
                     batch-aggregation:
                         enabled: auto
 
 
 - 递归用法
-        
+
         // 这种用法可以让纵向查询，简化为横向查询（如果递归深度为3，则只进行3次查询，不会随着条数增加而增加）
         public class FolderParent {
             private String name;
@@ -311,7 +326,7 @@
 
 
 - 兼容spring的多线程上下文切换组件
-    
+
 
         @Bean
         public org.springframework.core.task.TaskDecorator taskDecorator(){
@@ -325,7 +340,7 @@
 
 
 - 非阻塞用法（取决于底层自动优化：可能为异步，可能为单线程聚合，可能为Dubbo调用）
-    
+
       @ReturnFieldAop
       public CompletableFuture<List<OrderSelectListResp>> selectList() {
           List<OrderSelectListResp> list = mapper.selectList();
@@ -355,7 +370,7 @@
 
 
 
-#### 详细看示例项目 
+#### 详细看示例项目
 
 [![https://github.com/wangzihaogithub/field-intercept-example](https://github.com/wangzihaogithub/field-intercept-example)](https://github.com/wangzihaogithub/field-intercept-example)
 
