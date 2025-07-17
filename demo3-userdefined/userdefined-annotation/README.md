@@ -5,6 +5,7 @@
 
 1. 继承原生的注解，定义新的注解
 
+```java
 
       @Retention(RetentionPolicy.RUNTIME)
       @Target({ElementType.FIELD})
@@ -47,9 +48,12 @@
       
       } 
 
+```
 
 2. 定义DTO
 
+
+```java
 
       @Data
       public class JobDTO {
@@ -58,9 +62,12 @@
           private String corpName;
       }
 
+```
 
 3. 写一个查询实现
 
+
+```java
 
     // 方式1（自定义逻辑的根据id查询）
     @Service("corpServiceImpl")
@@ -87,17 +94,28 @@
         }
     }
 
+```
+
+
+```java
     
+
      // 方式2 （如果你有自己的抽象增删改查服务可以这样做）
      @Service("corpServiceImpl")
-     public class CorpServiceImpl extends AbstractCrudService<String, Corp, CorpMapper>
+     public class CorpServiceImpl extends AbstractCrudService<String, Corp, CorpMapper>{
+    
+     }
 
+```
 
 4. 触发查询
 
          触发查询的入口有两种， 任选其一即可：
 
-          方式1. 方法上标记 @ReturnFieldAop注解。
+
+```java
+
+          // 方式1. 方法上标记 @ReturnFieldAop注解。
 
             @ReturnFieldAop
             public List<JobDTO> selectByIds(Collection<Integer> ids) {
@@ -105,7 +123,12 @@
             }
 
 
-         方式2. 主动触发查询
+```
+
+
+```java
+
+         // 方式2. 主动触发查询
             @Autowired 
             private ReturnFieldDispatchAop returnFieldDispatchAop;
 
@@ -114,5 +137,7 @@
                 returnFieldDispatchAspect.autowiredFieldValue(list);
                 return list;
             }
+
+```
 
 6. 好了，看下JobDTO里的数据已经填充进去了
